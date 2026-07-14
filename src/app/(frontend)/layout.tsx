@@ -1,5 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './styles.css'
 import { GlassSurface } from '@/components/GlassSurface'
 
@@ -35,6 +37,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <main className="pt-32 pb-16 px-4 max-w-5xl mx-auto">
           {children}
         </main>
+        
+        {/* Vercel Monitoring */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
