@@ -211,6 +211,8 @@ export interface Project {
   repoUrl?: string | null;
   liveUrl?: string | null;
   thumbnail?: (string | null) | Media;
+  status?: ('draft' | 'published') | null;
+  publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -379,6 +381,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   repoUrl?: T;
   liveUrl?: T;
   thumbnail?: T;
+  status?: T;
+  publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

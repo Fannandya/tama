@@ -22,6 +22,10 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      titleSuffix: ' - Tama Portfolio Admin',
+      description: 'System Management for Tama Portfolio',
+    },
   },
   serverURL: env.NEXT_PUBLIC_SERVER_URL,
   cors: [env.NEXT_PUBLIC_SERVER_URL],
