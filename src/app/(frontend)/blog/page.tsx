@@ -2,6 +2,7 @@ import React from 'react'
 import { GlassSurface } from '@/components/GlassSurface'
 import { getCachedPosts } from '@/lib/data'
 import Link from 'next/link'
+import type { Post } from '@/payload-types'
 
 export const metadata = { title: 'Blog' }
 
@@ -12,7 +13,7 @@ export default async function BlogPage() {
     <div>
       <h1 className="text-4xl font-bold mb-8">Blog</h1>
       <div className="flex flex-col gap-6">
-        {posts.map((post: any) => (
+        {posts.map((post: Post) => (
           <Link key={post.id} href={`/blog/${post.slug}`}>
             <GlassSurface className="p-6 hover:bg-white/20 transition-colors cursor-pointer">
               <h2 className="text-2xl font-semibold mb-2">{post.title}</h2>

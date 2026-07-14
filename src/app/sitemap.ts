@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { getCachedPosts, getCachedProjects } from '@/lib/data'
+import type { Post, Project } from '@/payload-types'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
@@ -7,14 +8,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getCachedPosts()
   const projects = await getCachedProjects()
 
-  const postUrls: MetadataRoute.Sitemap = posts.map((post: any) => ({
+  const postUrls: MetadataRoute.Sitemap = posts.map((post: Post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.updatedAt || post.publishedAt || new Date()),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
   }))
 
-  const projectUrls: MetadataRoute.Sitemap = projects.map((project: any) => ({
+  const projectUrls: MetadataRoute.Sitemap = projects.map((project: Project) => ({
     url: `${baseUrl}/portfolio/${project.slug}`,
     lastModified: new Date(project.updatedAt || project.publishedAt || new Date()),
     changeFrequency: 'monthly' as const,

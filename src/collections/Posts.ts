@@ -17,8 +17,8 @@ export const Posts: CollectionConfig = {
   },
   hooks: {
     beforeChange: [populatePublishedAt],
-    afterChange: [revalidateCollection('posts')],
-    afterDelete: [revalidateCollection('posts')],
+    afterChange: [revalidateCollection.afterChange('posts')],
+    afterDelete: [revalidateCollection.afterDelete('posts')],
   },
   fields: [
     {

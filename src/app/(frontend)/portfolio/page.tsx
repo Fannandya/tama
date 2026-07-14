@@ -2,6 +2,7 @@ import React from 'react'
 import { GlassSurface } from '@/components/GlassSurface'
 import { getCachedProjects } from '@/lib/data'
 import Link from 'next/link'
+import type { Project } from '@/payload-types'
 
 export const metadata = { title: 'Portfolio' }
 
@@ -12,7 +13,7 @@ export default async function PortfolioPage() {
     <div>
       <h1 className="text-4xl font-bold mb-8">Portfolio</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project: any) => (
+        {projects.map((project: Project) => (
           <Link key={project.id} href={`/portfolio/${project.slug}`}>
             <GlassSurface className="p-6 hover:scale-[1.02] transition-transform cursor-pointer h-full">
               <h2 className="text-2xl font-semibold mb-2">{project.name}</h2>

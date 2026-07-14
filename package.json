@@ -62,9 +62,9 @@
     "pnpm": "^9 || ^10 || ^11"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp",
+    "approvedBuilds": [
       "esbuild",
+      "sharp",
       "unrs-resolver"
     ]
   }

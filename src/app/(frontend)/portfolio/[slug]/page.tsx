@@ -2,6 +2,7 @@ import React from 'react'
 import { getCachedProjectBySlug, getCachedProjects } from '@/lib/data'
 import { notFound } from 'next/navigation'
 import { GlassSurface } from '@/components/GlassSurface'
+import type { Project } from '@/payload-types'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export async function generateStaticParams() {
   const projects = await getCachedProjects()
-  return projects.map((project: any) => ({ slug: project.slug }))
+  return projects.map((project: Project) => ({ slug: project.slug }))
 }
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {

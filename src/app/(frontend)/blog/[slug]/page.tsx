@@ -3,6 +3,8 @@ import { getCachedPostBySlug, getCachedPosts, getCachedComments } from '@/lib/da
 import { notFound } from 'next/navigation'
 import { GlassSurface } from '@/components/GlassSurface'
 import { CommentForm } from './CommentForm'
+import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
+import type { Post, Comment } from '@/payload-types'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -13,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export async function generateStaticParams() {
   const posts = await getCachedPosts()
-  return posts.map((post: any) => ({ slug: post.slug }))
+  return posts.map((post: Post) => ({ slug: post.slug }))
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -22,6 +24,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound()
   
   const comments = await getCachedComments(post.id)
+  const contentHtml = post.content ? convertLexicalToHTML({ data: post.content }) : ''
 
   return (
     <article className="max-w-3xl mx-auto">
@@ -30,16 +33,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {post.publishedAt && (
           <p className="text-black/50 dark:text-white/50 mb-8">{new Date(post.publishedAt).toLocaleDateString()}</p>
         )}
-        <div className="prose prose-neutral dark:prose-invert max-w-none">
-          <p>Post content goes here (Requires Lexical HTML renderer).</p>
-        </div>
+        <div
+          className="prose prose-neutral dark:prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
       </GlassSurface>
 
       <div className="mb-12">
         <h2 className="text-3xl font-bold mb-6">Comments ({comments.length})</h2>
         {comments.length > 0 ? (
           <div className="flex flex-col gap-4">
-            {comments.map((comment: any) => (
+            {comments.map((comment: Comment) => (
               <GlassSurface key={comment.id} className="p-6">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="font-bold">{comment.name}</span>

@@ -3,6 +3,10 @@ import configPromise from '@payload-config'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ success: false, error: 'Seed endpoint is only available in development mode' }, { status: 403 })
+  }
+
   try {
     const payload = await getPayload({ config: configPromise })
 

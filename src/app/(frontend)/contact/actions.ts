@@ -11,6 +11,11 @@ export async function submitContactForm(formData: FormData) {
     return { success: false, error: 'All fields are required.' }
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email)) {
+    return { success: false, error: 'Please provide a valid email address.' }
+  }
+
   try {
     const payload = await getPayloadClient()
     await payload.create({

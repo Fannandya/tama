@@ -17,8 +17,8 @@ export const Projects: CollectionConfig = {
   },
   hooks: {
     beforeChange: [populatePublishedAt],
-    afterChange: [revalidateCollection('projects')],
-    afterDelete: [revalidateCollection('projects')],
+    afterChange: [revalidateCollection.afterChange('projects')],
+    afterDelete: [revalidateCollection.afterDelete('projects')],
   },
   fields: [
     {
