@@ -1,21 +1,16 @@
 import React from 'react'
-import { getCachedPostBySlug, getCachedPosts, getCachedComments } from '@/lib/data'
+import { getCachedPostBySlug, getCachedComments } from '@/lib/data'
 import { notFound } from 'next/navigation'
 import { GlassSurface } from '@/components/GlassSurface'
 import { CommentForm } from './CommentForm'
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
-import type { Post, Comment } from '@/payload-types'
+import type { Comment } from '@/payload-types'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const post = await getCachedPostBySlug(slug)
   if (!post) return { title: 'Not Found' }
   return { title: post.title }
-}
-
-export async function generateStaticParams() {
-  const posts = await getCachedPosts()
-  return posts.map((post: Post) => ({ slug: post.slug }))
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {

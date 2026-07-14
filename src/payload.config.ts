@@ -44,6 +44,7 @@ export default buildConfig({
       max: 10,
     },
     idType: 'uuid',
+    push: true,
   }),
   sharp,
   localization: {

@@ -2,11 +2,19 @@ import { MetadataRoute } from 'next'
 import { getCachedPosts, getCachedProjects } from '@/lib/data'
 import type { Post, Project } from '@/payload-types'
 
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
-  const posts = await getCachedPosts()
-  const projects = await getCachedProjects()
+  let posts: Post[] = []
+  let projects: Project[] = []
+  try {
+    posts = await getCachedPosts()
+    projects = await getCachedProjects()
+  } catch {
+    // Tables might not exist yet during first deploy
+  }
 
   const postUrls: MetadataRoute.Sitemap = posts.map((post: Post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
