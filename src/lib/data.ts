@@ -66,3 +66,20 @@ export const getCachedProjectBySlug = (slug: string) => unstable_cache(
   [`project_${slug}`],
   { tags: [`projects_${slug}`] }
 )()
+
+export const getCachedComments = (postId: string) => unstable_cache(
+  async () => {
+    const payload = await getPayloadClient()
+    const result = await payload.find({
+      collection: 'comments',
+      where: {
+        post: { equals: postId },
+        status: { equals: 'approved' }
+      },
+      sort: '-createdAt'
+    })
+    return result.docs
+  },
+  [`comments_${postId}`],
+  { tags: [`comments_${postId}`] }
+)()

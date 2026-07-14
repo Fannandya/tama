@@ -13,6 +13,7 @@ import { Posts } from './collections/Posts'
 import { Projects } from './collections/Projects'
 import { Tags } from './collections/Tags'
 import { Messages } from './collections/Messages'
+import { Comments } from './collections/Comments'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,7 +32,7 @@ export default buildConfig({
   serverURL: env.NEXT_PUBLIC_SERVER_URL,
   cors: [env.NEXT_PUBLIC_SERVER_URL],
   csrf: [env.NEXT_PUBLIC_SERVER_URL],
-  collections: [Users, Media, Posts, Projects, Tags, Messages],
+  collections: [Users, Media, Posts, Projects, Tags, Messages, Comments],
   editor: lexicalEditor(),
   secret: env.PAYLOAD_SECRET,
   typescript: {
