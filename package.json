@@ -60,12 +60,5 @@
   "engines": {
     "node": ">=18.20.0"
   },
-  "packageManager": "pnpm@11.13.0",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp",
-      "unrs-resolver"
-    ]
-  }
+  "packageManager": "pnpm@11.13.0"
 }
