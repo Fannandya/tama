@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { Project } from '@/payload-types'
 
 export const metadata = { title: 'Portfolio' }
+export const dynamic = 'force-dynamic'
 
 export default async function PortfolioPage() {
   const projects = await getCachedProjects()

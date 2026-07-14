@@ -6,6 +6,8 @@ import { CommentForm } from './CommentForm'
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
 import type { Comment } from '@/payload-types'
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const post = await getCachedPostBySlug(slug)
