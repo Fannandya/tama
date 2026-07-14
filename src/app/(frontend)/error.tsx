@@ -4,10 +4,10 @@ import React from 'react'
 import { GlassSurface } from '@/components/GlassSurface'
 
 export default function Error({
-  error,
+  _error,
   reset,
 }: {
-  error: Error & { digest?: string }
+  _error: Error & { digest?: string }
   reset: () => void
 }) {
   return (
